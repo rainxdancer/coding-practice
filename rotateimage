@@ -1,0 +1,9 @@
+def solution(a):
+    n = len(a)
+    # x column becomes x row
+    # x row becomes n-x column
+    matrix = [[0] * n for i in range(n)]
+    for j in range(n):
+        for i in range(n):
+            matrix[i][j] = a[n-1-j][i] 
+    return matrix
