@@ -1,0 +1,136 @@
+# Return true if l is a palindrome, otherwise return false.
+
+
+
+#     [0. 1. 2. 3. 4]
+#     step 1 ---> size == 5
+#     step 2
+#         f(0)
+#             f(1)
+#                 f(2)
+#                 return true, fpointer(3) (index == 3)
+#             pos(1) == pos(3)
+#             return true or false
+#         pos(0) == pos(4)
+#         return true or false
+
+#     [0, 1, 2, 3, 4, 5]
+#     step 1 ---> size == 6
+#     step 2
+#         f(0)
+#             f(1)
+#                 f(2)
+#                     f(3)
+#                     return true, fpointer(3) (index == 3)
+#                 return pos(2) == pos(3)
+#             return pos(1) == pos(4)
+#         return pos(0) == pos(5)
+    
+    
+# Singly-linked lists are already defined with this interface:
+class ListNode(object):
+  def __init__(self, x):
+    self.value = x
+    self.next = None
+
+    #def func(bw: ListNode, currentIndex: int, size: int) -> (bool, ListNode)
+def func(bw: ListNode, currentIndex: int, size: int) -> (bool, ListNode):
+    #     figure out if even or odd
+    #         if odd
+    #         return True, pointer.next
+    #         else it's even
+    #         return True, pointer
+    #     result, fw = f(pointer.next, current++, size)\
+    
+    #     # previously false
+    #     if result.first == False
+    #         return False, None
+
+    #     if bwpointer.value != fwpw.value
+    #         return False, None
+
+    #     return True, fwPointer.next
+    
+    print(f'Calculating index {currentIndex}')
+    if currentIndex == int(size / 2):
+        #if odd
+        if size % 2 == 1:
+            print(f'Base case index {currentIndex}, Odd')
+            return True, bw.next
+        else:
+            print(f'Base case index {currentIndex}, Even')
+            return True, bw
+
+    result, fw = func(bw.next, currentIndex+1, size)
+    
+    if result == False:
+        return False, None
+    
+    print(f'Calculating {currentIndex}, compare bw {bw.value} with fw {fw.value}')
+    if bw.value != fw.value:
+        return False, None
+    
+    return True, fw.next
+
+
+    
+def solve(l: ListNode) -> bool:
+    # step 1, find size of linked list
+    # step 2, find midpoint and save one pointer to it O(1) thing,recursively go to the middle, when the loop is unwinding, compare the unwinded step with middle pointer.next
+    # step 1
+    z = l
+    size = 0
+    while(z):
+        print(z.value)
+        size+=1
+        z = z.next
+    # step 2
+    result, p = func(l, 0, size)
+    return result
+    
+    
+def main():
+    # Test 2
+    a = ListNode(0)
+    b = ListNode(1)
+    c = ListNode(0)
+    d = ListNode(1)
+    e = ListNode(0)
+    
+    a.next = b
+    b.next = c
+    c.next = d
+    d.next = e
+
+    print("Executing Test 1")
+    assert solve(a) == True
+    
+    # Test 2
+    
+    a = ListNode(0)
+    b = ListNode(1)
+    c = ListNode(0)
+    d = ListNode(0)
+
+    
+    a.next = b
+    b.next = c
+    c.next = d
+    
+    print("\nExecuting Test 2")
+    assert solve(a) == False
+    
+    # Test 3
+
+    a = None
+    
+    print("\nExecuting Test 3")
+    assert solve(a) == True
+    
+    # Test 4
+    
+    a = ListNode(0)
+    print("\nExecuting Test 4")
+    assert solve(a) == True
+    
+main()
