@@ -1,0 +1,42 @@
+
+    
+
+# function that takes an array and returns hashtable 
+def func(dishes): 
+    solution = []
+    # dictionary in the format of:
+    # {ingredient1 : [dish1, dish2, ...], ingredient2 : []...} 
+    d = {}
+    for recipe in dishes:
+        dish = recipe[0]
+        ingredients = recipe[1:]
+        for i in ingredients:
+            if i in d.keys(): 
+                d[i].append(dish)  
+            else: 
+                d[i] = [dish]
+    for key in d: 
+        if len(d[key]) > 1:   # removes all ingredients with less than 1 dish
+            d[key].sort()
+            l = [key] + d[key]
+            solution.append(l)
+    solution.sort()   # key=lambda x:x[0]
+    # print(solution)
+    return solution
+    
+def main():
+    test1 = [["Salad", "Tomato", "Cucumber", "Salad", "Sauce"],
+            ["Pizza", "Tomato", "Sausage", "Sauce", "Dough"],
+            ["Quesadilla", "Chicken", "Cheese", "Sauce"],
+            ["Sandwich", "Salad", "Bread", "Tomato", "Cheese"]]
+    
+    func(test1)
+    
+    ans1 = [["Cheese", "Quesadilla", "Sandwich"],
+            ["Salad", "Salad", "Sandwich"],
+            ["Sauce", "Pizza", "Quesadilla", "Salad"],
+            ["Tomato", "Pizza", "Salad", "Sandwich"]]
+    
+    assert func(test1) == ans1
+    
+main()
