@@ -1,0 +1,38 @@
+# Returns True if tree t has a path from root to leaf with sum s, False otherwise.
+
+class Tree(object):
+    def __init__(self, x):
+        self.value = x
+        self.left = None
+        self.right = None
+
+def solution(t, s):
+    currentSum = s
+    c = t
+    branch = None
+    while c: 
+        # base case, where the root is also the leaf
+        if c.left == None and c.right == None: 
+            if c.value == s:
+                return True
+            else: 
+                return False
+        elif c.left and c.right == None:
+            currentSum = s - c.value
+            c = c.left
+            return solution(c, currentSum)
+        elif c.left == None and c.right: 
+            currentSum = s - c.value
+            c = c.right
+            return solution(c, currentSum)
+        elif c.left and c.right: 
+            branch = c
+            currentSum = s - c.value
+            c = c.left
+            if solution(c, currentSum) == False:
+                c = branch
+                c.left = None
+                currentSum = currentSum + c.value
+            else: 
+                return True
+    return False
