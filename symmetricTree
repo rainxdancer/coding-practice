@@ -1,0 +1,39 @@
+
+class Tree(object):
+    def __init__(self, x):
+        self.value = x
+        self.left = None
+        self.right = None
+
+# Using recursion, checks if a binary tree is symmetric.
+
+def areMirrors(t1, t2):
+    c1 = t1
+    c2 = t2
+    if t1.value != t2.value:
+        return False
+    if t1.left:
+        if t2.right == None:
+            return False
+        else:
+            if areMirrors(t1.left, t2.right) == False: 
+                return False
+    else: 
+        if t2.right: 
+            return False
+    if t1.right:
+        if t2.left == None:
+            return False
+        else:
+            if areMirrors(t1.right, t2.left) == False: 
+                return False
+    else: 
+        if t2.left: 
+            return False
+    return True
+    
+def solution(t):
+    if t: 
+        return areMirrors(t, t)
+    else:
+        return True # empty tree case 
