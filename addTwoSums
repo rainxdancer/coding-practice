@@ -1,0 +1,29 @@
+# You're given 2 huge integers represented by linked lists. Each 
+# linked list element is a number from 0 to 9999 that represents 
+# a number with exactly 4 digits. The represented number might have 
+# leading zeros. Your task is to add up these huge integers and 
+# return the result in the same format.
+
+class ListNode(object):
+    def __init__(self, x):
+        self.value = x
+        self.next = None
+
+def toInteger(l):
+    c = l
+    n = 0
+    while c:
+        n = n * 10000 + c.value
+        c = c.next
+    return n
+def toLL(n): 
+    current = ListNode(n % 10000)
+    last = None
+    while n > 9999:
+        n = int(str(n)[:-4])
+        last = current
+        current = ListNode(n % 10000)
+        current.next = last
+    return current
+def solution(a, b):
+    return toLL(toInteger(a) + toInteger(b))
