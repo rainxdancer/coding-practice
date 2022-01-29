@@ -1,0 +1,29 @@
+def helper(coins,quantity,index, sum:int, memory: set):
+    # if sum is not 0 and not in memory, add sum to memory
+    # index = 0
+
+    # for each possible sum in current index
+    # add to all possible sums in the future
+    if index < len(coins):
+        value = coins[index]
+        q = quantity[index]
+        for i in range(0,q+1):
+            s = sum + value * i
+            # print(f'Value {value} with Quantity {q}, Count {i} and Sum {s}')
+            if s != 0 and s not in memory:
+                memory.add(s)
+
+            helper(coins, quantity, index + 1, s, memory)
+
+
+def solution(coins,quantity):
+
+    # len coins = len quantity
+    # for coin[i]: possible sums = [coin[i] * range(0,quantity[i])]
+    # ex: for c=10, q=1: q could be 0, 1; possible sums = 0, 10
+    # ALL possiblesums(10) + ALL possiblesums(50) + ALL possiblesums(100)
+    # add 1 from each, add to final possible sum
+    memory = set()
+    
+    helper(coins, quantity, 0, 0, memory)
+    return len(memory) 
