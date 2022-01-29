@@ -1,0 +1,38 @@
+
+def nextPerm(nums):
+    # [0,....,N-1]
+    # start at nums[n-1], keep going nums[n-2] ... until nums[n-k] < nums[n-1]    
+    # set n-k to pivot point (?)
+    # [0, ... n - k - 1] + [value of n-1 to this position ] + sort least -> greatest [n - k, n -2]
+    
+    pivot = 0
+    n = nums[-1]
+    for i in range(len(nums)-2, -1, -1):
+        if nums[i] < n: 
+            pivot = i
+            break
+    tosort = nums[pivot:len(nums)-1]
+    
+    # dumb sort (selection sort) O(n^2)
+    # quick sort O(nlogn) 
+    # merge sort O(nlogn)
+    
+    tosort.sort()   # O(n) 
+    ans = nums[:pivot] + [n] + tosort
+    
+
+    print(ans)
+    return ans
+    
+
+def main():
+    
+    nums1 = [8, 1, 7,6,5,4,3]
+    ans1 = [1,3,2]
+    
+    nums2 = [3,2,1]
+    ans2 = [1,2,3]
+    
+    nextPerm(nums1)
+
+main()
