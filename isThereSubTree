@@ -1,0 +1,25 @@
+class Tree(object):
+   def __init__(self, x):
+     self.value = x
+     self.left = None
+     self.right = None
+
+# checks if t2 is a subtree of t1
+
+def solution(t1, t2):
+    
+    c1 = t1
+    c2 = t2
+    if c2 == None:
+        return True
+    if c1 == None:
+        return False
+    if c1.value == c2.value and solution(c1.left, c2.left) and solution(c1.right, c2.right):
+        return True
+    else: 
+        if solution(c1.left, c2):
+            return True
+        elif solution(c1.right, c2):
+            return True
+        else:
+            return False
